@@ -151,6 +151,7 @@ var items = [];
 var lastScroll = 0;
 var lastViewportHeight = 0;
 var ticking = false;
+var lastElemTops = [];
 
 // Pulls adjective out of array using random number sent from generator
 function getAdj(x) {
@@ -495,17 +496,17 @@ function logAverageFrame(times) { // times is the array of User Timing measureme
 function updatePositions() {
     frame++;
     window.performance.mark("mark_start_frame");
-    var bounding = [];
+
     var scrollTop = lastScroll;
     var viewportHeight = lastViewportHeight;
+    elemTops = lastElemTops.slice(); //make a copy of array because it can change while we are animating
+
+    //Only animate pizzas if they are in the viewport
     for (var i = 0; i < items.length; i++) {
-        bounding[i] = items[i].getBoundingClientRect();
-    }
-    for (var i = 0; i < items.length; i++) {
-        var elementTop = bounding[i].top;
-        var move = 100 * Math.sin((scrollTop / 1250) + (i % 5));
+        var elementTop = elemTops[i];
         if (elementTop >= 0 && elementTop <= viewportHeight) {
-            items[i].style.transform = `translateX(${Math.round(move)}px)`;
+            var move = Math.round(100 * Math.sin((scrollTop / 1250) + (i % 5)));
+            items[i].style.transform = `translateX(${move}px)`;
         }
 
     }
@@ -522,8 +523,14 @@ function updatePositions() {
 }
 
 function onScroll() {
+    //prepare the path before requestAnimation frame.
     lastScroll = document.documentElement.scrollTop || document.body.scrollTop;
     lastViewportHeight = window.innerHeight;
+    var elemRect = 0;
+    for (var i = 0; i < items.length; i++) {
+        elemRect = items[i].getBoundingClientRect();
+        lastElemTops[i] = elemRect.top
+    }
     if (!ticking) {
         window.requestAnimationFrame(updatePositions)
     }
@@ -533,19 +540,21 @@ function onScroll() {
 // runs updatePositions on scroll
 window.addEventListener('scroll', onScroll);
 
-// Generates the sliding pizzas when the page loads.
+// Generate pizzas depending on screen size.
 document.addEventListener('DOMContentLoaded', function() {
-    var cols = 8;
     var s = 256;
+    var cols = Math.ceil(screen.width / s);
+    var row = Math.ceil(screen.height / s);
+    var space = cols * row;
 
-    for (var i = 0; i < 200; i++) {
+    for (var i = 0; i < space; i++) {
         var elem = document.createElement('img');
         elem.className = 'mover';
         elem.src = "images/pizza.png";
         elem.style.height = "100px";
         elem.style.width = "73.333px";
         elem.style.top = (Math.floor(i / cols) * s) + 'px';
-        elem.style.left = (i % cols) * s + 100 * (i % 5) + 'px';
+        elem.style.left = (i % cols) * s + 100 * (i % row) + 'px';
         items[i] = elem;
         document.querySelector("#movingPizzas1").appendChild(elem);
     }
