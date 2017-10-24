@@ -150,7 +150,7 @@ String.prototype.capitalize = function() {
 var items = [];
 var lastScroll = 0;
 var lastViewportHeight = 0;
-var ticking = false;
+var ticking = true;
 var lastElemTops = [];
 
 // Pulls adjective out of array using random number sent from generator
@@ -527,6 +527,7 @@ function onScroll() {
     lastScroll = document.documentElement.scrollTop || document.body.scrollTop;
     lastViewportHeight = window.innerHeight;
     var elemRect = 0;
+    //eacg element top position respect to the viewport
     for (var i = 0; i < items.length; i++) {
         elemRect = items[i].getBoundingClientRect();
         lastElemTops[i] = elemRect.top
@@ -557,5 +558,6 @@ document.addEventListener('DOMContentLoaded', function() {
         elem.style.left = (i % cols) * s + 100 * (i % row) + 'px';
         items[i] = elem;
         document.querySelector("#movingPizzas1").appendChild(elem);
+        ticking = false;
     }
 });
