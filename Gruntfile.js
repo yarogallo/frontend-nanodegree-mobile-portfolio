@@ -55,6 +55,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-mkdir');
     //grunt.loadNpmTasks('grunt-resize-crop');
     grunt.loadNpmTasks('imagemagick');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.registerTask('default', ['clean', 'mkdir', 'responsive_images']);
 
 };
