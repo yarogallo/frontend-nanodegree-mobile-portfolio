@@ -40,14 +40,14 @@ module.exports = function(grunt) {
                         expand: true,
                         cwd: 'css/',
                         src: ['*.css', '!*.min.css'],
-                        dest: 'css/',
+                        dest: 'dist/css/',
                         ext: '.min.css'
                     },
                     {
                         expand: true,
                         cwd: './views/css/',
                         src: ['*.css', '!*.min.css'],
-                        dest: './views/css/',
+                        dest: 'dist/views/',
                         ext: '.min.css'
                     }
                 ]
@@ -62,34 +62,27 @@ module.exports = function(grunt) {
             target: {
                 files: [{
                     expand: true,
-                    cwd: './',
-                    src: ['*.html'],
-                    dest: './',
-                    exp: '.min.html'
-                }, {
-                    expand: true,
-                    cwd: './views/',
-                    src: ['*.html'],
-                    dest: './views',
+                    src: ['*.html', 'views/pizza.html'],
+                    dest: 'dist/',
                     exp: '.min.html'
                 }]
             }
-        }
+        },
 
-        // clean: {
-        //     dev: {
-        //         src: ['images']
-        //     }
+        clean: {
+            dev: {
+                src: ['dist', 'dist/css']
+            }
 
-        // },
+        },
 
-        // mkdir: {
-        //     dev: {
-        //         options: {
-        //             create: ['images'],
-        //         }
-        //     }
-        // },
+        mkdir: {
+            dev: {
+                options: {
+                    create: ['dist', 'dist/css'],
+                }
+            }
+        },
     });
 
     //grunt.loadNpmTasks('grunt-responsive-images');
@@ -100,6 +93,6 @@ module.exports = function(grunt) {
     //grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
-    grunt.registerTask('default', ['cssmin', ]);
+    grunt.registerTask('default', ['cssmin', 'htmlmin']);
 
 };
