@@ -499,7 +499,7 @@ function updatePositions() {
 
     var scrollTop = lastScroll;
     var viewportHeight = lastViewportHeight;
-    var elemTops = lastElemTops.slice(); //make a copy of array because it can change while we are animating
+    var elemTops = lastElemTops.slice(); //make a copy of array 
 
     //Only animate pizzas if they are in the viewport
     for (var i = 0; i < items.length; i++) {
@@ -527,7 +527,7 @@ function onScroll() {
     lastScroll = document.documentElement.scrollTop || document.body.scrollTop;
     lastViewportHeight = window.innerHeight;
     var elemRect = 0;
-    //eacg element top position respect to the viewport
+    // elements top position respect to the viewport
     for (var i = 0; i < items.length; i++) {
         elemRect = items[i].getBoundingClientRect();
         lastElemTops[i] = elemRect.top;
