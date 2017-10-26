@@ -499,7 +499,7 @@ function updatePositions() {
 
     var scrollTop = lastScroll;
     var viewportHeight = lastViewportHeight;
-    elemTops = lastElemTops.slice(); //make a copy of array because it can change while we are animating
+    var elemTops = lastElemTops.slice(); //make a copy of array because it can change while we are animating
 
     //Only animate pizzas if they are in the viewport
     for (var i = 0; i < items.length; i++) {
@@ -530,10 +530,10 @@ function onScroll() {
     //eacg element top position respect to the viewport
     for (var i = 0; i < items.length; i++) {
         elemRect = items[i].getBoundingClientRect();
-        lastElemTops[i] = elemRect.top
+        lastElemTops[i] = elemRect.top;
     }
     if (!ticking) {
-        window.requestAnimationFrame(updatePositions)
+        window.requestAnimationFrame(updatePositions);
     }
     ticking = true;
 }
