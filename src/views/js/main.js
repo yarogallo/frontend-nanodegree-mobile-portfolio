@@ -431,7 +431,7 @@ var resizePizzas = function(size) {
     // Changes the value for the size of the pizza above the slider
 
     var dx = 0;
-    var randomPizzaContainer = document.querySelectorAll(".randomPizzaContainer");
+    var randomPizzaContainer = document.getElementsByClassName(".randomPizzaContainer");
     switch (size) {
         case "1":
             document.querySelector("#pizzaSize").innerHTML = "Small";
@@ -547,9 +547,10 @@ document.addEventListener('DOMContentLoaded', function() {
     var cols = Math.ceil(screen.width / s);
     var row = Math.ceil(screen.height / s);
     var space = cols * row;
+    var elem = null;
 
     for (var i = 0; i < space; i++) {
-        var elem = document.createElement('img');
+        elem = document.createElement('img');
         elem.className = 'mover';
         elem.src = "images/pizza.png";
         elem.style.top = (Math.floor(i / cols) * s) + 'px';
