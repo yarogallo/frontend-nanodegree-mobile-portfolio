@@ -1,40 +1,67 @@
 ## Website Performance Optimization portfolio project
 
-Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
-
-To get started, check out the repository and inspect the code.
-
-### Getting started
 
 #### Part 1: Optimize PageSpeed Insights score for index.html
 
-Some useful tips to help you get started:
+## Getting started:
 
-1. Check out the repository
-1. To inspect the site on your phone, you can run a local server
+1. Check out the repository [https://github.com/yarogallo/frontend-nanodegree-mobile-portfolio.git](https://github.com/yarogallo/frontend-nanodegree-mobile-portfolio.git)
+1. To inspect the site install Live Server.
+1. To verify that Node.js is installed, run ```node -v``` if it is not, follow the instructions [here](https://nodejs.org/en/)
+1. To confirm that npm is installed, run ```npm -v```
+1. Install live-server, follow the intructions [here](https://gist.github.com/donmccurdy/20fb112949324c92c5e8)
 
-  ```bash
-  $> cd /path/to/your-project-folder
-  $> python -m SimpleHTTPServer 8080
-  ```
-
+```bash
+  $> npm install -g live-server
+  $> cd /path/to/your/project-folder
+  $> live-server
+```
 1. Open a browser and visit localhost:8080
-1. Download and install [ngrok](https://ngrok.com/) to the top-level of your project directory to make your local server accessible remotely.
+1. Download and install [ngrok](https://ngrok.com/) to the top-level of the project directory to make the local server accessible remotely.
 
-  ``` bash
+``` bash
   $> cd /path/to/your-project-folder
-  $> ./ngrok http 8080
-  ```
+  $> ngrok http 8080
+```
 
-1. Copy the public URL ngrok gives you and try running it through PageSpeed Insights! Optional: [More on integrating ngrok, Grunt and PageSpeed.](http://www.jamescryer.com/2014/06/12/grunt-pagespeed-and-ngrok-locally-testing/)
+1. Copy the public URL from ngrok and try running it through PageSpeed Insights! Optional: [More on integrating ngrok, Grunt and PageSpeed.](http://www.jamescryer.com/2014/06/12/grunt-pagespeed-and-ngrok-locally-testing/)
 
-Profile, optimize, measure... and then lather, rinse, and repeat. Good luck!
+## Check the PageSpeed sugestion for improve performance.
+
+1. Analize critical resources, css and javasript files that can delay the initial page render.
+1. Mark javascript files as async, in order to avoid parser blocking
+1. Use media types in print.css file, inline critical css, and [rel=preload](https://github.com/filamentgroup/loadCSS/blob/master/README.md) load stylesheets asynchronously.
+1. Use grunt to optimize images with grunt-contrib-imagemin, instructions [here](https://www.npmjs.com/package/grunt-contrib-imagemin) 
+1. Render images depending on screen resolution using srcset attribute, instructions [here](https://www.sitepoint.com/how-to-build-responsive-images-with-srcset/)
+
 
 #### Part 2: Optimize Frames per Second in pizza.html
 
-To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js. 
+## Getting started:
+
+1. Open Developers Tools, Performance tap and record while doing an animation to measure performance.
+1. Analize the animation behavior(main, frames) to see where are the problems.
+
+## Resize pizza in pizza.html
+
+1. Asign a percent value to a variable, depending on the pizza size that the user chose.
+1. Change all pizza container width based on the size that was chosen. 
+
+## Achieve 60fps in pizza.html 
+
+1. 200 are a lot of pizza images to be generated, first generate pizzas depending on the screen size.
+1. Use ```window.requestAnimationFrame(callback)``` for performing the animation.
+1. Try doing the least work inside the callback function, make it as simple as possible by doing all the work possible before call ```requestAnimationFrame```.
+1. Use a variable to be sure that the previous animation has finished before start a new one. 
+1. Threre is no need to move all the pizzas during the scrolling event, move only the images that are visible in that moment, depending on the viewport height.
+
 
 You might find the FPS Counter/HUD Display useful in Chrome developer tools described here: [Chrome Dev Tools tips-and-tricks](https://developer.chrome.com/devtools/docs/tips-and-tricks).
+
+#### Part 3: Version compressed and minified.
+
+1. The compressed and minified version of the project is inside of ```dist``` directory.
+1. The source code is inside ```src``` directory.
 
 ### Optimization Tips and Tricks
 * [Optimizing Performance](https://developers.google.com/web/fundamentals/performance/ "web performance")
